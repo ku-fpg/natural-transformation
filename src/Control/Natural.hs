@@ -1,4 +1,4 @@
-{-# LANGUAGE CPP, DeriveDataTypeable, FlexibleInstances, FunctionalDependencies,
+{-# LANGUAGE CPP, FlexibleInstances, FunctionalDependencies,
              GADTs, MultiParamTypeClasses, RankNTypes, TypeOperators #-}
 
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 702
@@ -10,6 +10,11 @@
 {-# LANGUAGE PolyKinds #-}
 #endif
 
+#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 708
+# define LANGUAGE_DeriveDataTypeable
+{-# LANGUAGE DeriveDataTypeable #-}
+#endif
+
 {-|
 Module:      Control.Natural
 Copyright:   (C) 2015 The University of Kansas
@@ -19,11 +24,7 @@ Stability:   Experimental
 
 A data type and type class for natural transformations.
 -}
-module Control.Natural
-  ( (~>)()
-  , (:~>)(..)
-  , Transformation(..)
-  ) where
+module Control.Natural where
 
 #if defined(LANGUAGE_PolyKinds)
 import qualified Control.Category as C (Category(..))
@@ -33,6 +34,9 @@ import qualified Control.Category as C (Category(..))
 import           Data.Monoid (Monoid(..))
 #endif
 import           Data.Typeable (Typeable)
+#if !defined(LANGUAGE_DeriveDataTypeable)
+import           Data.Typeable (TyCon, Typeable1(..), mkTyCon3, mkTyConApp, typeOf)
+#endif
 
 infixr 0 #
 -- | A (natural) transformation is inside @t@, and contains @f@ and @g@
@@ -56,7 +60,17 @@ type f ~> g = forall x. f x -> g x
 
 infixr 0 :~>, $$
 -- | A data type representing a natural transformation from @f@ to @g@.
-newtype f :~> g = Nat { ($$) :: f ~> g } deriving Typeable
+newtype f :~> g = Nat { ($$) :: f ~> g }
+#if defined(LANGUAGE_DeriveDataTypeable)
+  deriving Typeable
+#else
+instance (Typeable1 f, Typeable1 g) => Typeable (f :~> g) where
+    typeOf _ = mkTyConApp natTyCon [typeOf1 (undefined :: f a), typeOf1 (undefined :: g a)]
+
+natTyCon :: TyCon
+natTyCon = mkTyCon3 "natural-transformation" "Control.Natural" ":~>"
+{-# NOINLINE natTyCon #-}
+#endif
 
 #if defined(LANGUAGE_PolyKinds)
 instance C.Category (:~>) where
