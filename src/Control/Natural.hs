@@ -1,6 +1,10 @@
 {-# LANGUAGE CPP, DeriveDataTypeable, FlexibleInstances, FunctionalDependencies,
              GADTs, MultiParamTypeClasses, RankNTypes, TypeOperators #-}
-             
+
+#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 702
+{-# LANGUAGE Safe #-}
+#endif
+
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 706
 # define LANGUAGE_PolyKinds
 {-# LANGUAGE PolyKinds #-}
