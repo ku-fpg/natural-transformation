@@ -1,5 +1,5 @@
-{-# LANGUAGE CPP, FlexibleInstances, GADTs,
-             MultiParamTypeClasses, RankNTypes, TypeOperators #-}
+{-# LANGUAGE CPP, FlexibleInstances, MultiParamTypeClasses,
+             RankNTypes, TypeFamilies, TypeOperators #-}
 
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 706 && MIN_VERSION_base(4,7,0)
 # define LANGUAGE_PolyKinds
