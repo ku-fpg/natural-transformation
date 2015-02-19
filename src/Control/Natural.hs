@@ -9,6 +9,8 @@
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 708
 # define LANGUAGE_DeriveDataTypeable
 {-# LANGUAGE DeriveDataTypeable #-}
+#else
+{-# LANGUAGE ScopedTypeVariables #-}
 #endif
 
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 702
@@ -40,7 +42,12 @@ import           Data.Monoid (Monoid(..))
 #endif
 import           Data.Typeable (Typeable)
 #if !defined(LANGUAGE_DeriveDataTypeable)
-import           Data.Typeable (TyCon, Typeable1(..), mkTyCon3, mkTyConApp, typeOf)
+import           Data.Typeable (TyCon, Typeable1(..), mkTyConApp, typeOf)
+# if MIN_VERSION_base(4,4,0)
+import           Data.Typeable (mkTyCon3)
+# else
+import           Data.Typeable (mkTyCon)
+# endif
 #endif
 
 -------------------------------------------------------------------------------
@@ -57,7 +64,11 @@ instance (Typeable1 f, Typeable1 g) => Typeable (f :~> g) where
     typeOf _ = mkTyConApp natTyCon [typeOf1 (undefined :: f a), typeOf1 (undefined :: g a)]
 
 natTyCon :: TyCon
+# if MIN_VERSION_base(4,4,0)
 natTyCon = mkTyCon3 "natural-transformation" "Control.Natural" ":~>"
+# else
+natTyCon = mkTyCon ":~>"
+# endif
 {-# NOINLINE natTyCon #-}
 #endif
 
