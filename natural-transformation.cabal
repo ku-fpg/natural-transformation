@@ -23,6 +23,7 @@ source-repository head
 
 library
   exposed-modules:     Control.Natural
+                       Control.Transformation
   build-depends:       base >= 3 && < 5
   hs-source-dirs:      src
   ghc-options:         -Wall
