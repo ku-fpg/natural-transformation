@@ -5,7 +5,7 @@
 {-# LANGUAGE Safe #-}
 #endif
 
-#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 706
+#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 706 && MIN_VERSION_base(4,7,0)
 # define LANGUAGE_PolyKinds
 {-# LANGUAGE PolyKinds #-}
 #endif
@@ -20,7 +20,7 @@ Stability:   Experimental
 A data type and type class for natural transformations.
 -}
 module Control.Natural
-  ( type (~>)
+  ( (~>)()
   , (:~>)(..)
   , Transformation(..)
   ) where
