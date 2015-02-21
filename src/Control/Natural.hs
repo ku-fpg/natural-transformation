@@ -40,15 +40,7 @@ import           Control.Transformation (Transformation(..))
 #if !(MIN_VERSION_base(4,8,0))
 import           Data.Monoid (Monoid(..))
 #endif
-import           Data.Typeable (Typeable)
-#if !defined(LANGUAGE_DeriveDataTypeable)
-import           Data.Typeable (TyCon, Typeable1(..), mkTyConApp, typeOf)
-# if MIN_VERSION_base(4,4,0)
-import           Data.Typeable (mkTyCon3)
-# else
-import           Data.Typeable (mkTyCon)
-# endif
-#endif
+import           Data.Typeable
 
 -------------------------------------------------------------------------------
 -- Code adapted from Edward Kmett's @indexed@ package
