@@ -1,5 +1,4 @@
-{-# LANGUAGE CPP, FlexibleInstances, MultiParamTypeClasses,
-             RankNTypes, TypeFamilies, TypeOperators #-}
+{-# LANGUAGE CPP, FlexibleInstances, RankNTypes, TypeFamilies, TypeOperators #-}
 
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 706 && MIN_VERSION_base(4,7,0)
 # define LANGUAGE_PolyKinds
@@ -35,7 +34,6 @@ module Control.Natural ((:~>)(..)) where
 #if defined(LANGUAGE_PolyKinds)
 import qualified Control.Category as C (Category(..))
 #endif
-import           Control.Transformation (Transformation(..))
 
 #if !(MIN_VERSION_base(4,8,0))
 import           Data.Monoid (Monoid(..))
@@ -73,6 +71,3 @@ instance C.Category (:~>) where
 instance f ~ g => Monoid (f :~> g) where
     mempty = Nat id
     mappend (Nat f) (Nat g) = Nat (f . g)
-
-instance Transformation f g (f :~> g) where
-    Nat f # g = f g

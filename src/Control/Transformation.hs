@@ -1,4 +1,5 @@
-{-# LANGUAGE CPP, FunctionalDependencies, MultiParamTypeClasses #-}
+{-# LANGUAGE CPP, FlexibleInstances, FunctionalDependencies,
+             MultiParamTypeClasses, TypeOperators #-}
 
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 706 && MIN_VERSION_base(4,7,0)
 {-# LANGUAGE PolyKinds #-}
@@ -19,6 +20,8 @@ A type class for transformations.
 -}
 module Control.Transformation (Transformation(..)) where
 
+import Control.Natural ((:~>)(..))
+
 infixr 0 #
 -- | A (natural) transformation is inside @t@, and contains @f@ and @g@
 -- (typically 'Functor's).
@@ -29,3 +32,6 @@ infixr 0 #
 class Transformation f g t | t -> f g where
     -- | The invocation method for a natural transformation.
     (#) :: t -> f a -> g a
+
+instance Transformation f g (f :~> g) where
+    Nat f # g = f g
