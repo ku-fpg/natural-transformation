@@ -21,7 +21,7 @@ import Data.Sequence (Seq, fromList)
 
 import Test.QuickCheck.Instances ()
 import Test.Tasty (TestTree, defaultMain, testGroup)
-import Test.Tasty.QuickCheck (Arbitrary, testProperty)
+import Test.Tasty.QuickCheck (testProperty)
 
 main :: IO ()
 main = defaultMain testProperties
@@ -38,7 +38,7 @@ testProperties = testGroup "QuickCheck properties"
 -- @
 -- fmap h . r == r . fmap h
 -- @
-prop_freeTheorem :: (Arbitrary (f a), Eq (g b), Functor f, Functor g, Transformation f g t)
+prop_freeTheorem :: (Eq (g b), Functor f, Functor g, Transformation f g t)
                  => (a -> b) -> t -> f a -> Bool
 prop_freeTheorem h r t = fmap h (r # t) == (r # fmap h t)
 
@@ -49,7 +49,7 @@ prop_freeTheorem h r t = fmap h (r # t) == (r # fmap h t)
 --  * @mappend x mempty = x@
 --
 --  * @mappend x (mappend y z) = mappend (mappend x y) z@
-prop_monoidLaws :: (Arbitrary (f a), Eq (f a), Monoid t, Transformation f f t)
+prop_monoidLaws :: (Eq (f a), Monoid t, Transformation f f t)
                 => t -> t -> t -> f a -> Bool
 prop_monoidLaws x y z t = (mappend mempty x # t) == (x # t)
                        && (mappend x mempty # t) == (x # t)

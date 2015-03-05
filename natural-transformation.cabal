@@ -8,14 +8,14 @@ homepage:            https://github.com/ku-fpg/natural-transformation
 bug-reports:         https://github.com/ku-fpg/natural-transformation/issues
 license:             BSD3
 license-file:        LICENSE
-stability:           Experimental
+stability:           Provisional
 author:              Andy Gill
 maintainer:          Andy Gill <andygill@ku.edu>
 copyright:           Copyright (c) 2015 The University of Kansas
 category:            Control
 build-type:          Simple
 extra-source-files:  CHANGELOG.md, README.md
-cabal-version:       >=1.8
+cabal-version:       >= 1.10
 
 source-repository head
   type:                git
@@ -26,16 +26,18 @@ library
                        Control.Transformation
   build-depends:       base >= 3 && < 5
   hs-source-dirs:      src
+  default-language:    Haskell2010
   ghc-options:         -Wall
 
 test-suite natural-transformation-properties
   type:                exitcode-stdio-1.0
   main-is:             Properties.hs
-  build-depends:       base                   >= 4   && < 5
+  build-depends:       base                   >= 4.5 && < 5
                      , containers             >= 0.1 && < 0.6
                      , natural-transformation == 0.1
                      , quickcheck-instances   >= 0.1 && < 0.4
                      , tasty                  >= 0.8 && < 0.11
                      , tasty-quickcheck       >= 0.8 && < 0.9
   hs-source-dirs:      tests
+  default-language:    Haskell2010
   ghc-options:         -Wall
