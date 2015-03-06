@@ -40,9 +40,9 @@ import           Data.Monoid (Monoid(..))
 #endif
 import           Data.Typeable
 
--------------------------------------------------------------------------------
--- Code adapted from Edward Kmett's @indexed@ package
--------------------------------------------------------------------------------
+---------------------------------------------------------------------------
+-- Code adapted, with permission, from Edward Kmett's @indexed@ package.
+---------------------------------------------------------------------------
 
 infixr 0 :~>, $$
 -- | A natural transformation from @f@ to @g@.
