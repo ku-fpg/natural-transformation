@@ -1,4 +1,8 @@
-{-# LANGUAGE CPP, FlexibleInstances, RankNTypes, TypeFamilies, TypeOperators #-}
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 706 && MIN_VERSION_base(4,7,0)
 # define LANGUAGE_PolyKinds
@@ -43,9 +47,8 @@ import           Data.Typeable
 ---------------------------------------------------------------------------
 -- Code adapted, with permission, from Edward Kmett's @indexed@ package.
 ---------------------------------------------------------------------------
-
 infixr 0 :~>, $$
--- | A natural transformation from @f@ to @g@.
+
 newtype f :~> g = Nat { ($$) :: forall x. f x -> g x }
 #if defined(LANGUAGE_DeriveDataTypeable)
   deriving Typeable
