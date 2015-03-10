@@ -48,12 +48,6 @@ import           Data.Typeable
 -- Code adapted, with permission, from Edward Kmett's @indexed@ package.
 ---------------------------------------------------------------------------
 
--- 
--- {-# RULES "natural free theorem" [~] 
---     forall h (r :: (Functor f, Functor g, Transformation f g t) => t) . 
---     fmap h . (r #) = (r #) . fmap h 
---   #-}
-
 infixr 0 ~>
 -- | A natural transformation from @f@ to @g@.
 type f ~> g = forall x. f x -> g x

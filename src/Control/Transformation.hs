@@ -30,11 +30,16 @@ infixr 0 #
 -- (typically 'Functor's).
 -- 
 -- The order of arguments allows the use of @GeneralizedNewtypeDeriving@ to wrap
--- a 'Natural', but maintain the 'Transformation' constraint. Thus, '#' can be used
+-- a ':~>', but maintain the 'Transformation' constraint. Thus, @#@ can be used
 -- on abstract data types.
 class Transformation f g t | t -> f g where
     -- | The invocation method for a natural transformation.
     (#) :: t -> f a -> g a
+
+-- {-# RULES "natural free theorem" [~] 
+--     forall h (r :: (Functor f, Functor g, Transformation f g t) => t) . 
+--     fmap h . (r #) = (r #) . fmap h 
+--   #-}
 
 instance Transformation f g (f :~> g) where
     Nat f # g = f g
