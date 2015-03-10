@@ -1,4 +1,5 @@
-{-# LANGUAGE CPP, TypeOperators #-}
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE TypeOperators #-}
 {-|
 Module:      Main
 Copyright:   (C) 2015 The University of Kansas

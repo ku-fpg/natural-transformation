@@ -1,7 +1,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE GADTs #-}
 {-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
 
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 706 && MIN_VERSION_base(4,7,0)
@@ -33,7 +33,7 @@ Stability:   Experimental
 
 A data type for natural transformations.
 -}
-module Control.Natural ((:~>)(..)) where
+module Control.Natural ((~>)(), (:~>)(..)) where
 
 #if defined(LANGUAGE_PolyKinds)
 import qualified Control.Category as C (Category(..))
@@ -47,9 +47,20 @@ import           Data.Typeable
 ---------------------------------------------------------------------------
 -- Code adapted, with permission, from Edward Kmett's @indexed@ package.
 ---------------------------------------------------------------------------
-infixr 0 :~>, $$
 
-newtype f :~> g = Nat { ($$) :: forall x. f x -> g x }
+-- 
+-- {-# RULES "natural free theorem" [~] 
+--     forall h (r :: (Functor f, Functor g, Transformation f g t) => t) . 
+--     fmap h . (r #) = (r #) . fmap h 
+--   #-}
+
+infixr 0 ~>
+-- | A natural transformation from @f@ to @g@.
+type f ~> g = forall x. f x -> g x
+
+infixr 0 :~>, $$
+-- | A natural transformation suitable for storing in a container.
+newtype f :~> g = Nat { ($$) :: f ~> g }
 #if defined(LANGUAGE_DeriveDataTypeable)
   deriving Typeable
 #else

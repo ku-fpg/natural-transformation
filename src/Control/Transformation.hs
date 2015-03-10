@@ -3,7 +3,6 @@
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeOperators #-}
-{-# LANGUAGE RankNTypes #-}
 
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 706 && MIN_VERSION_base(4,7,0)
 {-# LANGUAGE PolyKinds #-}
@@ -22,18 +21,9 @@ Stability:   Experimental
 
 A type class for transformations.
 -}
-module Control.Transformation (Transformation(..), (~>)() ) where
+module Control.Transformation (Transformation(..)) where
 
 import Control.Natural ((:~>)(..))
-
-{-# RULES "natural free theorem" [~] 
-    forall h (r :: (Functor f, Functor g, Transformation f g t) => t) . 
-    fmap h . (r #) = (r #) . fmap h 
-  #-}
-
-infixr 0 ~>
--- | A natural transformation from @f@ to @g@.
-type f ~> g = forall x. f x -> g x
 
 infixr 0 #
 -- | A (natural) transformation is inside @t@, and contains @f@ and @g@
