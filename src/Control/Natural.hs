@@ -4,24 +4,18 @@
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE TypeOperators #-}
 
-#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 706 && MIN_VERSION_base(4,7,0)
+#if MIN_VERSION_base(4,7,0)
 # define LANGUAGE_PolyKinds
 {-# LANGUAGE PolyKinds #-}
 #endif
 
-#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 708
+#if __GLASGOW_HASKELL__ >= 708
 # define LANGUAGE_DeriveDataTypeable
 {-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE Safe #-}
 #else
 {-# LANGUAGE ScopedTypeVariables #-}
-#endif
-
-#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 702
-# if defined(LANGUAGE_DeriveDataTypeable)
-{-# LANGUAGE Safe #-}
-# else
 {-# LANGUAGE Trustworthy #-}
-# endif
 #endif
 
 {-|

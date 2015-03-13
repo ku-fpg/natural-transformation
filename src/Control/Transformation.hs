@@ -2,14 +2,11 @@
 {-# LANGUAGE FlexibleInstances #-} 
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE Safe #-}
 {-# LANGUAGE TypeOperators #-}
 
-#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 706 && MIN_VERSION_base(4,7,0)
+#if MIN_VERSION_base(4,7,0)
 {-# LANGUAGE PolyKinds #-}
-#endif
-
-#if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 702
-{-# LANGUAGE Safe #-}
 #endif
 
 {-|
