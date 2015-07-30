@@ -27,7 +27,7 @@ Stability:   Experimental
 
 A data type for natural transformations.
 -}
-module Control.Natural ((~>)(), (:~>)(..)) where
+module Control.Natural (type (~>), (:~>)(..)) where
 
 #if defined(LANGUAGE_PolyKinds)
 import qualified Control.Category as C (Category(..))
