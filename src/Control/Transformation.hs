@@ -4,6 +4,7 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE Safe #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE InstanceSigs #-}
 
 #if MIN_VERSION_base(4,7,0)
 {-# LANGUAGE PolyKinds #-}
@@ -21,6 +22,12 @@ A type class for transformations.
 module Control.Transformation (Transformation(..)) where
 
 import Control.Natural ((:~>)(..))
+
+import           Data.Functor.Yoneda
+import           Data.Functor.Coyoneda
+import           Data.Functor.Kan.Ran
+
+import           Control.Arrow (Kleisli (..))
 
 infixr 0 #
 -- | A (natural) transformation is inside @t@, and contains @f@ and @g@
@@ -40,3 +47,21 @@ class Transformation f g t | t -> f g where
 
 instance Transformation f g (f :~> g) where
     Nat f # g = f g
+
+
+-- data Yoneda f a = Yoneda (forall b. (a -> b) -> f b)
+instance Transformation ((->) a) f (Yoneda f a) where
+  (#) :: Yoneda f a -> (a -> b) -> f b
+  Yoneda y # f = y f
+
+-- data Coyoneda f a = forall b. Coyoneda (b -> a) (f b)
+instance Functor f => Transformation ((->) a) f (Coyoneda f a) where
+  (#) :: Functor f => Coyoneda f a -> (a -> b) -> f b
+  Coyoneda f fb # g = fmap (g . f) fb
+
+-- data Kleisli g a b = Kleisli (a -> g b)
+-- data Ran g h a = Ran (forall b. (a -> g b) -> h b)
+instance Transformation (Kleisli g a) h (Ran g h a) where
+  (#) :: Ran g h a -> Kleisli g a b -> h b
+  Ran r # Kleisli k = r k
+
