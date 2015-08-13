@@ -1,5 +1,5 @@
 name:                natural-transformation
-version:             0.2
+version:             0.2.1
 synopsis:            A natural transformation package.
 description:         A natural transformation transforms a container @f a@ into another
                      container @g a@ while preserving the internal structure. Natural
@@ -23,6 +23,7 @@ source-repository head
 
 library
   exposed-modules:     Control.Natural
+                       Control.Object
                        Control.Transformation
   build-depends:       base >= 4.6 && < 5
                      , kan-extensions         >= 3.7
