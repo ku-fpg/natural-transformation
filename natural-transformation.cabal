@@ -36,7 +36,7 @@ test-suite natural-transformation-properties
   main-is:             Properties.hs
   build-depends:       base                   >= 4.6 && < 5
                      , containers             >= 0.1 && < 0.6
-                     , natural-transformation == 0.2
+                     , natural-transformation == 0.2.1
                      , quickcheck-instances   >= 0.1 && < 0.4
                      , tasty                  >= 0.8 && < 0.11
                      , tasty-quickcheck       >= 0.8 && < 0.9
