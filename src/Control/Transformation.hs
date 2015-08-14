@@ -53,24 +53,24 @@ instance Transformation f g (f :~> g) where
 
 
 -- data Yoneda f a = Yoneda (forall b. (a -> b) -> f b)
-instance Transformation ((->) a) f (Yoneda f a) where
-  -- (#) :: Yoneda f a -> (a -> b) -> f b
+instance Transformation ((->) x) f (Yoneda f x) where
+  -- (#) :: Yoneda f x -> (x -> a) -> f a
   Yoneda y # f = y f
 
 -- data Coyoneda f a = forall b. Coyoneda (b -> a) (f b)
-instance Functor f => Transformation ((->) a) f (Coyoneda f a) where
-  -- (#) :: Functor f => Coyoneda f a -> (a -> b) -> f b
+instance Functor f => Transformation ((->) x) f (Coyoneda f x) where
+  -- (#) :: Functor f => Coyoneda f x -> (x -> a) -> f a
   Coyoneda f fb # g = fmap (g . f) fb
 
 -- data Kleisli g a b = Kleisli (a -> g b)
 -- data Ran g h a = Ran (forall b. (a -> g b) -> h b)
-instance Transformation (Kleisli g a) h (Ran g h a) where
-  -- (#) :: Ran g h a -> Kleisli g a b -> h b
+instance Transformation (Kleisli g x) h (Ran g h x) where
+  -- (#) :: Ran g h x -> Kleisli g x a -> h a
   Ran r # Kleisli k = r k
 
-instance Monad m => Transformation ((->) r) m (Codensity m r) where
+instance Monad m => Transformation ((->) x) m (Codensity m x) where
   Codensity c # f = c (return . f)
 
-instance Comonad w => Transformation ((->) r) w (Density w r) where
+instance Comonad w => Transformation ((->) x) w (Density w x) where
   Density df kb # f = extend (f . df) kb
 
