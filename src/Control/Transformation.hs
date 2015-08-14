@@ -27,6 +27,7 @@ import           Data.Functor.Coyoneda
 import           Data.Functor.Kan.Ran
 
 import           Control.Monad.Codensity
+import           Control.Monad
 import           Control.Comonad
 import           Control.Comonad.Density
 
@@ -60,7 +61,8 @@ instance Transformation ((->) x) f (Yoneda f x) where
 -- data Coyoneda f a = forall b. Coyoneda (b -> a) (f b)
 instance Functor f => Transformation ((->) x) f (Coyoneda f x) where
   -- (#) :: Functor f => Coyoneda f x -> (x -> a) -> f a
-  Coyoneda f fx # g = fmap (g . f) fx
+  -- Coyoneda f fx # g = fmap (g . f) fx
+  c # g = lowerCoyoneda $ fmap g c
 
 -- data Kleisli g a b = Kleisli (a -> g b)
 -- data Ran g h a = Ran (forall b. (a -> g b) -> h b)
@@ -70,7 +72,8 @@ instance Transformation (Kleisli g x) h (Ran g h x) where
 
 instance Monad m => Transformation ((->) x) m (Codensity m x) where
   -- (#) :: Monad m => Codensity m x -> (x -> a) -> m a
-  Codensity c # f = c (return . f)
+  -- Codensity c # f = c (return . f)
+  c # f = lowerCodensity $ liftM f c
 
 instance Comonad w => Transformation ((->) x) w (Density w x) where
   -- (#) :: Comonad w => Density w x -> (x -> a) -> w a
