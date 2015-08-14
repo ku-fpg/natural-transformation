@@ -69,8 +69,10 @@ instance Transformation (Kleisli g x) h (Ran g h x) where
   Ran r # Kleisli k = r k
 
 instance Monad m => Transformation ((->) x) m (Codensity m x) where
+  -- (#) :: Monad m => Codensity m x -> (x -> a) -> m a
   Codensity c # f = c (return . f)
 
 instance Comonad w => Transformation ((->) x) w (Density w x) where
+  -- (#) :: Comonad w => Density w x -> (x -> a) -> w a
   Density df kb # f = extend (f . df) kb
 
