@@ -60,7 +60,7 @@ instance Transformation ((->) x) f (Yoneda f x) where
 -- data Coyoneda f a = forall b. Coyoneda (b -> a) (f b)
 instance Functor f => Transformation ((->) x) f (Coyoneda f x) where
   -- (#) :: Functor f => Coyoneda f x -> (x -> a) -> f a
-  Coyoneda f fb # g = fmap (g . f) fb
+  Coyoneda f fx # g = fmap (g . f) fx
 
 -- data Kleisli g a b = Kleisli (a -> g b)
 -- data Ran g h a = Ran (forall b. (a -> g b) -> h b)
