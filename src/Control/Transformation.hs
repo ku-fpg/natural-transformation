@@ -1,5 +1,5 @@
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE FlexibleInstances #-} 
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE Safe #-}
@@ -25,6 +25,10 @@ import Control.Natural ((:~>)(..))
 import           Data.Functor.Yoneda
 import           Data.Functor.Coyoneda
 import           Data.Functor.Kan.Ran
+
+import           Control.Monad.Codensity
+import           Control.Comonad
+import           Control.Comonad.Density
 
 import           Control.Arrow (Kleisli (..))
 
@@ -63,4 +67,10 @@ instance Functor f => Transformation ((->) a) f (Coyoneda f a) where
 instance Transformation (Kleisli g a) h (Ran g h a) where
   -- (#) :: Ran g h a -> Kleisli g a b -> h b
   Ran r # Kleisli k = r k
+
+instance Monad m => Transformation ((->) r) m (Codensity m r) where
+  Codensity c # f = c (return . f)
+
+instance Comonad w => Transformation ((->) r) w (Density w r) where
+  Density df kb # f = extend (f . df) kb
 
