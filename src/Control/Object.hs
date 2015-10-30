@@ -19,7 +19,7 @@ import Control.Natural
 import Control.Transformation
 
 -- | An 'Object' is a natural transformation from a given 'Functor' 'f', to 'IO'.
-newtype Object f = Object (f :~> IO)
+newtype Object f = Object (f ~> IO)
 
 instance Transformation f IO (Object f) where
-    Object f # g = f $$ g
+    Object f # g = f g
