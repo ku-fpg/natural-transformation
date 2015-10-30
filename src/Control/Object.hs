@@ -1,7 +1,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE TypeOperators #-}
 {-# LANGUAGE Safe #-}
+{-# LANGUAGE TypeOperators #-}
 
 {-|
 Module:      Control.Object
@@ -14,7 +14,7 @@ An Object type.
 -}
 
 module Control.Object (Object(..)) where
-        
+
 import Control.Natural
 import Control.Transformation
 
@@ -23,4 +23,3 @@ newtype Object f = Object (f :~> IO)
 
 instance Transformation f IO (Object f) where
     Object f # g = f $$ g
-
