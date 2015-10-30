@@ -1,6 +1,7 @@
 .*.*.sw*
 dist
 cabal-dev
+*~
 *.o
 *.hi
 *.chi
@@ -10,3 +11,4 @@ cabal-dev
 .cabal-sandbox/
 cabal.sandbox.config
 cabal.config
+.\#*
