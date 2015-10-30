@@ -1,9 +1,9 @@
 name:                natural-transformation
-version:             0.2.1
+version:             0.3
 synopsis:            A natural transformation package.
 description:         A natural transformation transforms a container @f a@ into another
-                     container @g a@ while preserving the internal structure. Natural
-                     transformations act as functor morphisms in category theory.
+                     container @g a@. Natural transformations act as functor morphisms 
+                     in category theory.
 homepage:            https://github.com/ku-fpg/natural-transformation
 bug-reports:         https://github.com/ku-fpg/natural-transformation/issues
 license:             BSD3
@@ -35,7 +35,7 @@ test-suite natural-transformation-properties
   main-is:             Properties.hs
   build-depends:       base                   >= 4.7 && < 5
                      , containers             >= 0.1 && < 0.6
-                     , natural-transformation == 0.2.1
+                     , natural-transformation == 0.3
                      , quickcheck-instances   >= 0.1 && < 0.4
                      , tasty                  >= 0.8 && < 0.12
                      , tasty-quickcheck       >= 0.8 && < 0.9
