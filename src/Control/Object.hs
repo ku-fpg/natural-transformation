@@ -14,7 +14,7 @@ Stability:   Experimental
 An Object type.
 -}
 
-module Control.Object (Object(..)) where
+module Control.Object (Object(..), (#)) where
 
 import Control.Natural
 import Control.Transformation
