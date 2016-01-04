@@ -14,7 +14,7 @@ Stability:   Experimental
 An Object type.
 -}
 
-module Control.Object (Object(..), (#)) where
+module Control.Object (Object(..), Transformation(..)) where
 
 import Control.Natural
 import Control.Transformation
@@ -23,4 +23,4 @@ import Control.Transformation
 newtype Object f = Object (f ~> IO)
 
 instance Transformation f IO (Object f) where
-    Object f # g = f g
+    Object f # g = Nat f # g
