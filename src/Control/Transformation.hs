@@ -5,6 +5,7 @@
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE Safe #-}
 {-# LANGUAGE TypeOperators #-}
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 
 {-|
 Module:      Control.Transformation
@@ -29,11 +30,6 @@ infixr 0 #
 class Transformation f g t | t -> f g where
     -- | The invocation method for a natural transformation.
     (#) :: t -> f a -> g a
-
--- {-# RULES "natural free theorem" [~]
---     forall h (r :: (Functor f, Functor g, Transformation f g t) => t) .
---     fmap h . (r #) = (r #) . fmap h
---   #-}
 
 instance Transformation f g (f :~> g) where
     Nat f # g = f g
