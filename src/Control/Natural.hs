@@ -1,7 +1,8 @@
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE GADTs #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE Safe #-}
@@ -14,9 +15,16 @@ License:     BSD-style (see the file LICENSE)
 Maintainer:  Andy Gill
 Stability:   Experimental
 
-A data type for natural transformations.
+A data type and class for natural transformations.
 -}
-module Control.Natural (type (~>), (:~>)(..)) where
+module Control.Natural 
+  ( -- * Type Synonym for a Natural Transformation
+    type (~>)
+    -- * Newtype for a Natural Transformation
+  , (:~>)(..)
+    -- * Class for Natural Transformations
+  , Transformation(..)
+  ) where
 
 import qualified Control.Category as C (Category(..))
 
@@ -26,7 +34,7 @@ import           Data.Monoid (Monoid(..))
 import           Data.Typeable
 
 ---------------------------------------------------------------------------
--- Code adapted, with permission, from Edward Kmett's @indexed@ package.
+-- Naming of ~>, :~> and $$  taken with permission, from Edward Kmett's @indexed@ package.
 ---------------------------------------------------------------------------
 
 infixr 0 ~>
@@ -45,3 +53,17 @@ instance C.Category (:~>) where
 instance f ~ g => Monoid (f :~> g) where
     mempty = Nat id
     mappend (Nat f) (Nat g) = Nat (f . g)
+
+infix 0 #
+-- | A (natural) transformation is inside @t@, and contains @f@ and @g@
+-- (typically 'Functor's).
+--
+-- The order of arguments allows the use of @GeneralizedNewtypeDeriving@ to wrap
+-- a ':~>', but maintain the 'Transformation' constraint. Thus, @#@ can be used
+-- on abstract data types.
+class Transformation f g t | t -> f g where
+    -- | The invocation method for a natural transformation.
+    (#) :: t -> f a -> g a
+
+instance Transformation f g (f :~> g) where
+    Nat f # g = f g

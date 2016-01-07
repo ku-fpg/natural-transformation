@@ -11,13 +11,12 @@ License:     BSD-style (see the file LICENSE)
 Maintainer:  Andy Gill
 Stability:   Experimental
 
-An Object type.
+An Object type, which is a natural transformation into the 'IO' monad.
 -}
 
-module Control.Object (Object(..), Transformation(..)) where
+module Control.Object (Object(..), (#)) where
 
 import Control.Natural
-import Control.Transformation
 
 -- | An 'Object' is a natural transformation from a given 'Functor' 'f', to 'IO'.
 newtype Object f = Object (f ~> IO)

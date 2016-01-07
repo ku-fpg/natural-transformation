@@ -1,10 +1,7 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE Trustworthy #-}
-{-# LANGUAGE TypeOperators #-}
 
 {-|
 Module:      Control.Transformation.RULES
@@ -15,9 +12,9 @@ Stability:   Experimental
 
 A type class for transformations.
 -}
-module Control.Transformation.RULES () where
+module Control.Natural.RULES () where
 
-import Control.Transformation
+import Control.Natural
 
 {-# RULES "natural free theorem" [~]
      forall h (r :: (Functor f, Functor g, Transformation f g t) => t) .

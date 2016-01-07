@@ -11,8 +11,7 @@ Stability:   Experimental
 -}
 module Main (main) where
 
-import Control.Natural ((:~>)(..))
-import Control.Transformation (Transformation(..))
+import Control.Natural
 
 import Data.Foldable (toList)
 #if !(MIN_VERSION_base(4,8,0))
