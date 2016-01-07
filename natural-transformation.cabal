@@ -5,7 +5,8 @@ description:         A natural transformation transforms a container @f a@ into 
                      container @g a@. Natural transformations act as functor morphisms
                      in category theory.
                      .
-                     The naming of ~>, :~> and $$ were taken with permission from Edward Kmett's @indexed@ package.
+                     The naming of '~>', ':~>' and '$$' were taken,
+                     with permission, from Edward Kmett's @indexed@ package.
 homepage:            https://github.com/ku-fpg/natural-transformation
 bug-reports:         https://github.com/ku-fpg/natural-transformation/issues
 license:             BSD3

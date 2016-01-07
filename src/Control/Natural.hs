@@ -34,7 +34,7 @@ import           Data.Monoid (Monoid(..))
 import           Data.Typeable
 
 ---------------------------------------------------------------------------
--- Naming of ~>, :~> and $$  taken with permission, from Edward Kmett's @indexed@ package.
+-- Naming of ~>, :~> and $$ are taken (with permission) from Edward Kmett's @indexed@ package.
 ---------------------------------------------------------------------------
 
 infixr 0 ~>
@@ -59,7 +59,7 @@ infix 0 #
 -- (typically 'Functor's).
 --
 -- The order of arguments allows the use of @GeneralizedNewtypeDeriving@ to wrap
--- a ':~>', but maintain the 'Transformation' constraint. Thus, @#@ can be used
+-- a ':~>', but maintain the 'Transformation' constraint. Thus, ;#@ can be used
 -- on abstract data types.
 class Transformation f g t | t -> f g where
     -- | The invocation method for a natural transformation.
