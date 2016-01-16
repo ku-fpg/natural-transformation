@@ -1,6 +1,7 @@
 # 0.3
 * Adding Object
 * Required GHC 7.8 or greater
+* `Semigroup` instance for `(:~>)` on GHC 8.0 and up
 
 # 0.2
 * Require GHC 7.6 or greater
