@@ -18,7 +18,7 @@ Stability:   Experimental
 
 A data type and class for natural transformations.
 -}
-module Control.Natural 
+module Control.Natural
   ( -- * Type Synonym for a Natural Transformation
     type (~>)
     -- * Newtype for a Natural Transformation
@@ -31,6 +31,9 @@ import qualified Control.Category as C (Category(..))
 
 #if !(MIN_VERSION_base(4,8,0))
 import           Data.Monoid (Monoid(..))
+#endif
+#if MIN_VERSION_base(4,9,0)
+import           Data.Semigroup (Semigroup(..))
 #endif
 import           Data.Typeable
 
@@ -50,6 +53,11 @@ newtype f :~> g = Nat { ($$) :: f ~> g }
 instance C.Category (:~>) where
     id = Nat id
     Nat f . Nat g = Nat (f . g)
+
+#if MIN_VERSION_base(4,9,0)
+instance f ~ g => Semigroup (f :~> g) where
+    Nat f <> Nat g = Nat (f . g)
+#endif
 
 instance f ~ g => Monoid (f :~> g) where
     mempty = Nat id

@@ -2,6 +2,7 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE PolyKinds #-}
 {-# LANGUAGE Trustworthy #-}
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 
 {-|
 Module:      Control.Transformation.RULES
