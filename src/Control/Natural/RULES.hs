@@ -11,7 +11,15 @@ License:     BSD-style (see the file LICENSE)
 Maintainer:  Andy Gill
 Stability:   Experimental
 
-A type class for transformations.
+= GHC RULE for Natural Transformation
+
+
+@
+  RULES "natural free theorem" [~]
+     forall h (r :: (Functor f, Functor g, Transformation f g t) => t) .
+       fmap h . (r \#) = (r #) . fmap h
+@
+
 -}
 module Control.Natural.RULES () where
 
