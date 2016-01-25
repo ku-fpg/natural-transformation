@@ -1,5 +1,7 @@
 # 0.3
 * Adding Object
+* Rolled Control.Transformation into Control.Natural
+* Added RULES module
 * Required GHC 7.8 or greater
 * `Semigroup` instance for `(:~>)` on GHC 8.0 and up
 
