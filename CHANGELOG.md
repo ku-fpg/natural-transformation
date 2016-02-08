@@ -1,3 +1,6 @@
+# 0.3.1
+* Adding `run` and `nat`.
+
 # 0.3
 * Adding Object
 * Rolled Control.Transformation into Control.Natural

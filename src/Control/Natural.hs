@@ -68,7 +68,6 @@ infix 0 #
 -- (typically 'Functor's).
 --
 -- The order of arguments allows the use of @GeneralizedNewtypeDeriving@ to wrap
--- a ':~>', but maintain the 'Transformation' constraint. Thus, ;#@ can be used
 -- on abstract data types.
 class Transformation f g t | t -> f g where
     -- | The invocation method for a natural transformation.
