@@ -19,10 +19,13 @@ Stability:   Experimental
 A data type and class for natural transformations.
 -}
 module Control.Natural
-  ( -- * Type Synonym for a Natural Transformation
-    type (~>)
-    -- * Newtype for a Natural Transformation
-  , (:~>)(..)
+  ( -- * Newtype for a Natural Transformation
+    (:~>)(..)
+    -- * Type Synonym for a Natural Transformation
+  , type (~>)
+    -- * Conversion functions between the newtype and the synonym
+  , run
+  , nat
     -- * Class for Natural Transformations
   , Transformation(..)
   ) where
@@ -68,10 +71,21 @@ infix 0 #
 -- (typically 'Functor's).
 --
 -- The order of arguments allows the use of @GeneralizedNewtypeDeriving@ to wrap
+-- a ':~>', but maintain the 'Transformation' constraint. Thus, @#@ can be used
 -- on abstract data types.
 class Transformation f g t | t -> f g where
     -- | The invocation method for a natural transformation.
-    (#) :: t -> f a -> g a
+    (#) :: t -> forall a . f a -> g a
 
 instance Transformation f g (f :~> g) where
     Nat f # g = f g
+
+-- | 'run' is the nonfix version of @#@. It is used to break natural
+--   transformation wrappers, including ':~>'.
+run :: Transformation f g t => t -> (forall a . f a -> g a)
+run = (#)
+
+-- | 'nat' builds our natural transformation abstraction out of
+--    a natural transformation function.
+nat :: (forall a . f a -> g a) -> f :~> g
+nat = Nat
