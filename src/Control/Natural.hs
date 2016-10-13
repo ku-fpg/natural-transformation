@@ -35,9 +35,7 @@ import qualified Control.Category as C (Category(..))
 #if !(MIN_VERSION_base(4,8,0))
 import           Data.Monoid (Monoid(..))
 #endif
-#if MIN_VERSION_base(4,9,0)
 import           Data.Semigroup (Semigroup(..))
-#endif
 import           Data.Typeable
 
 ---------------------------------------------------------------------------
@@ -57,10 +55,8 @@ instance C.Category (:~>) where
     id = Nat id
     Nat f . Nat g = Nat (f . g)
 
-#if MIN_VERSION_base(4,9,0)
 instance f ~ g => Semigroup (f :~> g) where
     Nat f <> Nat g = Nat (f . g)
-#endif
 
 instance f ~ g => Monoid (f :~> g) where
     mempty = Nat id
