@@ -60,7 +60,7 @@ instance f ~ g => Semigroup (f :~> g) where
 
 instance f ~ g => Monoid (f :~> g) where
     mempty = Nat id
-    mappend (Nat f) (Nat g) = Nat (f . g)
+    mappend = (<>)
 
 infix 0 #
 -- | A (natural) transformation is inside @t@, and contains @f@ and @g@

@@ -1,3 +1,7 @@
+# 0.3.2
+* Backport the `Semigroup` instance for `(:~>)` by conditionally depending on
+  the `semigroups` package
+
 # 0.3.1
 * Adding `run` and `nat`.
 

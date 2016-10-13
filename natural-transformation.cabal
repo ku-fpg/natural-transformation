@@ -1,5 +1,5 @@
 name:                natural-transformation
-version:             0.3.1
+version:             0.3.2
 synopsis:            A natural transformation package.
 description:         A natural transformation transforms a container @f a@ into another
                      container @g a@. Natural transformations act as functor morphisms
@@ -14,35 +14,36 @@ license-file:        LICENSE
 stability:           Provisional
 author:              Andy Gill
 maintainer:          Andy Gill <andygill@ku.edu>
-copyright:           Copyright (c) 2015 The University of Kansas
+copyright:           Copyright (c) 2015-2016 The University of Kansas
 category:            Control
 build-type:          Simple
 extra-source-files:  CHANGELOG.md, README.md
-tested-with:         GHC == 7.8.4, GHC == 7.10.3
+tested-with:         GHC == 7.8.4, GHC == 7.10.3, GHC == 8.0.1
 cabal-version:       >= 1.10
 
 source-repository head
   type:                git
-  location:            git://github.com/ku-fpg/natural-transformation
+  location:            https://github.com/ku-fpg/natural-transformation
 
 library
   exposed-modules:     Control.Natural
                        Control.Natural.RULES
                        Control.Object
-                       
-  build-depends:       base >= 4.7 && < 5
+
+  build-depends:       base       >= 4.7  && < 5
+  if !impl(ghc >= 8.0)
+    build-depends:     semigroups >= 0.16 && < 0.19
+
   hs-source-dirs:      src
   default-language:    Haskell2010
   ghc-options:         -Wall
-  if !impl(ghc >= 8.0)
-    build-depends:     semigroups >= 0.16 && <0.19
 
 test-suite natural-transformation-properties
   type:                exitcode-stdio-1.0
   main-is:             Properties.hs
   build-depends:       base                   >= 4.7 && < 5
                      , containers             >= 0.1 && < 0.6
-                     , natural-transformation == 0.3.1
+                     , natural-transformation == 0.3.2
                      , quickcheck-instances   >= 0.1 && < 0.4
                      , tasty                  >= 0.8 && < 0.12
                      , tasty-quickcheck       >= 0.8 && < 0.9
