@@ -1,5 +1,6 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE RankNTypes #-}
 {-|
 Module:      Main
 Copyright:   (C) 2015 The University of Kansas
@@ -74,3 +75,16 @@ listSeqNT = NT fromList
 -- | A natural transformation from 'Seq's to lists.
 seqListNT :: Seq :~> []
 seqListNT = NT toList
+
+-- From the issue 9: https://github.com/ku-fpg/natural-transformation/issues/9
+applyNTCheck :: Either a ~> Maybe
+applyNTCheck = (if b then trans else applyNT) eitherToMaybe
+  where
+    b = True
+
+    eitherToMaybe :: Either a ~> Maybe
+    eitherToMaybe (Left _)  = Nothing
+    eitherToMaybe (Right x) = Just x
+
+    trans :: (Either a ~> Maybe) -> (Either a ~> Maybe)
+    trans x = x

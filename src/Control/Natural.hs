@@ -26,6 +26,8 @@ module Control.Natural
     -- * Conversion functions between the newtype and the synonym
   , wrapNT
   , unwrapNT
+    -- * Type inference helper
+  , applyNT
     -- * Class for Natural Transformations
   , Transformation(..)
   ) where
@@ -88,3 +90,7 @@ wrapNT = NT
 --   transformation wrappers, including ':~>'.
 unwrapNT :: Transformation f g t => t -> (forall a . f a -> g a)
 unwrapNT = (#)
+--
+-- See <https://github.com/ku-fpg/natural-transformation/issues/9#issuecomment-172121060 comment on GitHub>
+applyNT :: (f ~> g) -> (f ~> g)
+applyNT nt = nt
