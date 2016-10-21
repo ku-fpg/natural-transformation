@@ -84,7 +84,7 @@ instance Transformation f g (f :~> g) where
 wrapNT :: (forall a . f a -> g a) -> f :~> g
 wrapNT = NT
 
--- | 'applyNT' is the nonfix version of @#@. It is used to break natural
+-- | 'unwrapNT' is the nonfix version of @#@. It is used to break natural
 --   transformation wrappers, including ':~>'.
 unwrapNT :: Transformation f g t => t -> (forall a . f a -> g a)
 unwrapNT = (#)
