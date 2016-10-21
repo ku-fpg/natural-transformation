@@ -24,8 +24,8 @@ module Control.Natural
     -- * Type Synonym for a Natural Transformation
   , type (~>)
     -- * Conversion functions between the newtype and the synonym
-  , run
-  , nat
+  , wrapNT
+  , unwrapNT
     -- * Class for Natural Transformations
   , Transformation(..)
   ) where
@@ -48,18 +48,18 @@ type f ~> g = forall x. f x -> g x
 
 infixr 0 :~>, $$
 -- | A natural transformation suitable for storing in a container.
-newtype f :~> g = Nat { ($$) :: f ~> g }
+newtype f :~> g = NT { ($$) :: f ~> g }
   deriving Typeable
 
 instance C.Category (:~>) where
-    id = Nat id
-    Nat f . Nat g = Nat (f . g)
+    id = NT id
+    NT f . NT g = NT (f . g)
 
 instance f ~ g => Semigroup (f :~> g) where
-    Nat f <> Nat g = Nat (f . g)
+    NT f <> NT g = NT (f . g)
 
 instance f ~ g => Monoid (f :~> g) where
-    mempty = Nat id
+    mempty = NT id
     mappend = (<>)
 
 infix 0 #
@@ -74,14 +74,17 @@ class Transformation f g t | t -> f g where
     (#) :: t -> forall a . f a -> g a
 
 instance Transformation f g (f :~> g) where
-    Nat f # g = f g
+    NT f # g = f g
 
--- | 'run' is the nonfix version of @#@. It is used to break natural
+-- | 'wrapNT' builds our natural transformation abstraction out of
+-- a natural transformation function.
+--
+-- An alias to 'NT' provided for symmetry with 'unwrapNT'.
+--
+wrapNT :: (forall a . f a -> g a) -> f :~> g
+wrapNT = NT
+
+-- | 'applyNT' is the nonfix version of @#@. It is used to break natural
 --   transformation wrappers, including ':~>'.
-run :: Transformation f g t => t -> (forall a . f a -> g a)
-run = (#)
-
--- | 'nat' builds our natural transformation abstraction out of
---    a natural transformation function.
-nat :: (forall a . f a -> g a) -> f :~> g
-nat = Nat
+unwrapNT :: Transformation f g t => t -> (forall a . f a -> g a)
+unwrapNT = (#)

@@ -1,4 +1,8 @@
-# 0.3.2
+# 0.4
+
+* Renamed `Nat` constructor to `NT`
+* Renamed `run` to `unwrapNT`
+* Renamed `nat` to `wrapNT`
 * Backport the `Semigroup` instance for `(:~>)` by conditionally depending on
   the `semigroups` package
 

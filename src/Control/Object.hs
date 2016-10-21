@@ -22,4 +22,4 @@ import Control.Natural
 newtype Object f = Object (f ~> IO)
 
 instance Transformation f IO (Object f) where
-    Object f # g = Nat f # g
+    Object f # g = NT f # g

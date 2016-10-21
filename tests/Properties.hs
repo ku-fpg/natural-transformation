@@ -58,19 +58,19 @@ prop_monoidLaws x y z t = (mappend mempty x # t) == (x # t)
 
 -- | A natural transformations from lists to lists that 'reverse's.
 listReverseNT :: [] :~> []
-listReverseNT = Nat reverse
+listReverseNT = NT reverse
 
 -- | A natural transformation from lists to lists that shifts all elements to the left,
 -- moving the head element to the back.
 listShiftNT :: [] :~> []
-listShiftNT = Nat $ \l -> case l of
+listShiftNT = NT $ \l -> case l of
                                []     -> []
                                (x:xs) -> xs ++ [x]
 
 -- | A natural transformation from lists to 'Seq's.
 listSeqNT :: [] :~> Seq
-listSeqNT = Nat fromList
+listSeqNT = NT fromList
 
 -- | A natural transformation from 'Seq's to lists.
 seqListNT :: Seq :~> []
-seqListNT = Nat toList
+seqListNT = NT toList
