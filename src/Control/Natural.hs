@@ -35,7 +35,9 @@ import qualified Control.Category as C (Category(..))
 #if !(MIN_VERSION_base(4,8,0))
 import           Data.Monoid (Monoid(..))
 #endif
+#if !(MIN_VERSION_base(4,11,0))
 import           Data.Semigroup (Semigroup(..))
+#endif
 import           Data.Typeable
 
 ---------------------------------------------------------------------------
