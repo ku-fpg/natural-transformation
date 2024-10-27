@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP #-}
 {-# LANGUAGE TypeOperators #-}
 {-|
 Module:      Main
@@ -14,9 +13,6 @@ module Main (main) where
 import Control.Natural
 
 import Data.Foldable (toList)
-#if !(MIN_VERSION_base(4,8,0))
-import Data.Monoid (Monoid(..))
-#endif
 import Data.Sequence (Seq, fromList)
 
 import Test.QuickCheck.Instances ()
@@ -34,7 +30,7 @@ testProperties = testGroup "QuickCheck properties"
     ]
 
 -- | Verifies the free theorem for natural transformations, i.e., that
--- 
+--
 -- @
 -- fmap h . r == r . fmap h
 -- @
@@ -43,7 +39,7 @@ prop_freeTheorem :: (Eq (g b), Functor f, Functor g, Transformation f g t)
 prop_freeTheorem h r t = fmap h (r # t) == (r # fmap h t)
 
 -- | Verifies that natural transformations form a law-abiding 'Monoid', i.e., that
--- 
+--
 --  * @mappend mempty x = x@
 --
 --  * @mappend x mempty = x@

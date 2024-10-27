@@ -1,5 +1,4 @@
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE FunctionalDependencies #-}
 {-# LANGUAGE GADTs #-}
@@ -32,13 +31,9 @@ module Control.Natural
 
 import qualified Control.Category as C (Category(..))
 
-#if !(MIN_VERSION_base(4,8,0))
-import           Data.Monoid (Monoid(..))
-#endif
 #if !(MIN_VERSION_base(4,11,0))
 import           Data.Semigroup (Semigroup(..))
 #endif
-import           Data.Typeable
 
 ---------------------------------------------------------------------------
 -- Naming of ~>, :~> and $$ are taken (with permission) from Edward Kmett's @indexed@ package.
@@ -51,7 +46,6 @@ type f ~> g = forall x. f x -> g x
 infixr 0 :~>, $$
 -- | A natural transformation suitable for storing in a container.
 newtype f :~> g = NT { ($$) :: f ~> g }
-  deriving Typeable
 
 instance C.Category (:~>) where
     id = NT id

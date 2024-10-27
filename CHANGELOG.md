@@ -1,3 +1,6 @@
+# next [????.??.??]
+* Drop support for pre-8.0 versions of GHC.
+
 # 0.4
 * Rename `Nat` constructor to `NT`
 * Rename `run` to `unwrapNT`
