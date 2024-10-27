@@ -1,5 +1,5 @@
 name:                natural-transformation
-version:             0.4
+version:             0.4.1
 synopsis:            A natural transformation package.
 description:         A natural transformation transforms a container @f a@ into another
                      container @g a@. Natural transformations act as functor morphisms
