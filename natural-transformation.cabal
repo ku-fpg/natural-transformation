@@ -54,7 +54,7 @@ test-suite natural-transformation-properties
                      , natural-transformation
                      , quickcheck-instances   >= 0.1 && < 0.4
                      , tasty                  >= 0.8 && < 1.6
-                     , tasty-quickcheck       >= 0.8 && < 0.11
+                     , tasty-quickcheck       >= 0.8 && < 0.12
   hs-source-dirs:      tests
   default-language:    Haskell2010
   ghc-options:         -Wall
