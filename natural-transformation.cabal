@@ -50,7 +50,7 @@ test-suite natural-transformation-properties
   type:                exitcode-stdio-1.0
   main-is:             Properties.hs
   build-depends:       base                   >= 4.9 && < 5
-                     , containers             >= 0.1 && < 0.8
+                     , containers             >= 0.1 && < 0.9
                      , natural-transformation
                      , quickcheck-instances   >= 0.1 && < 0.4
                      , tasty                  >= 0.8 && < 1.6
